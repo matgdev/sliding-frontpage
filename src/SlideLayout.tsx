@@ -105,11 +105,11 @@ export function SlideLayout({ children }: { children?: Array<ReactElement> }) {
     const slideBar = children?.map((c, idx) => <div 
                                                     key={idx}
                                                     data-id={idx}
-                                                    className={`h-[5px] rounded border dark:border-dark-border flex-1 ${idx === activeSlideIdx ? "bg-emphasis " : " cursor-pointer " }`}
+                                                    className={`h-[5px] rounded border border-light-border dark:border-dark-border flex-1 ${idx === activeSlideIdx ? "bg-emphasis " : " cursor-pointer " }`}
                                                     onClick={idx === activeSlideIdx ? undefined : handleClickNavigation}
                                                     ></div>);
     return (
-        <div className="w-screen h-screen bg-linear-to-br from-stone-100 to-neutral-300 text-neutral-950 dark:from-gray-800 dark:to-neutral-800 dark:text-gray-300 p-4 flex flex-col items-stretch justify-stretch overflow-hidden" 
+        <div className="w-screen h-screen bg-linear-to-br from-zinc-300 to-neutral-300 text-neutral-950 dark:from-gray-800 dark:to-neutral-800 dark:text-gray-300 p-4 flex flex-col items-stretch justify-stretch overflow-hidden" 
             onWheel={handleWheel}>
                 <div className="w-full flex justify-center gap-1 mb-2 self-center">
                     {slideBar}
