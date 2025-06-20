@@ -17,7 +17,20 @@ export function SlideLayout({ children }: { children?: Array<ReactElement> }) {
     const transitionCount = useRef(0);
 
     const handleClickNavigation = (event: React.MouseEvent<HTMLDivElement>) => {
-        
+
+        if (isAnimating.current) return;
+
+        const target = event.target as HTMLElement;
+        const navigationIndex = Number(target.dataset.id);
+    
+        isAnimating.current = true;
+        scrollCount.current = navigationIndex - activeSlideIdx;
+        setAnimationSet((curr) => {
+            return {
+                exitAnim: (navigationIndex < activeSlideIdx ? "to-bottom" : "to-top"),
+                enterAnim: null
+            }
+        })
     }
 
     const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
@@ -90,9 +103,10 @@ export function SlideLayout({ children }: { children?: Array<ReactElement> }) {
     </div>
 
     const slideBar = children?.map((c, idx) => <div 
-                                                    key={idx} 
-                                                    className={`h-[5px] cursor-pointer border dark:border-dark-border flex-1 ${idx === activeSlideIdx ? "bg-emphasis" : "" }`}
-                                                    onClick={handleClickNavigation}
+                                                    key={idx}
+                                                    data-id={idx}
+                                                    className={`h-[5px] border dark:border-dark-border flex-1 ${idx === activeSlideIdx ? "bg-emphasis " : " cursor-pointer " }`}
+                                                    onClick={idx === activeSlideIdx ? undefined : handleClickNavigation}
                                                     ></div>);
     return (
         <div className="w-screen h-screen bg-linear-to-br from-stone-100 to-neutral-300 text-neutral-950 dark:from-gray-800 dark:to-neutral-800 dark:text-gray-300 p-4 flex flex-col items-stretch justify-stretch overflow-hidden" 
