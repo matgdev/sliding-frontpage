@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+@theme inline{
+    --color-emphasis: var(--color-rose-700);
+    --color-dark-primary: var(--color-slate-800);
+    --color-dark-secondary: var(--color-slate-400);
+    --color-dark-border: var(--color-slate-700)
+}
