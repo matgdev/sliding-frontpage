@@ -58,7 +58,7 @@ export function SlideLayout({ children }: { children?: Array<ReactElement> }) {
             scrollCount.current -= event.deltaY < 0 ? -1 : 1;
         }
 
-        setTimeout(() => throttleScroll.current = false, 200);
+        setTimeout(() => throttleScroll.current = false, 50);
     }
 
     const handleTransitionEnd = () => {
@@ -93,7 +93,7 @@ export function SlideLayout({ children }: { children?: Array<ReactElement> }) {
 
     const currentSlide = <div
         key={activeSlideIdx}
-        className={"w-full h-full transition-all duration-1000 " + classNames.join(" ")}
+        className={"w-full h-full transition-[opacity_transform] duration-300 ease-in " + classNames.join(" ")}
         onTransitionEnd={handleTransitionEnd}
         onAnimationEnd={() => {
             isAnimating.current = false;
