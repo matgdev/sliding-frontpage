@@ -13,6 +13,7 @@ export function SlideLayout({ children }: { children?: Array<ReactElement> }) {
     const [animationSet, setAnimationSet] = useState<AnimState | null>(null);
     const throttleScroll = useRef(false);
     const isAnimating = useRef(false);
+    const touchStart = useRef(0);
     const scrollCount = useRef(0);
     const transitionCount = useRef(0);
 
@@ -33,12 +34,25 @@ export function SlideLayout({ children }: { children?: Array<ReactElement> }) {
         })
     }
 
-    const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+    const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
         event.stopPropagation();
+        touchStart.current = event.touches[0].clientY;
+    }
+
+    const handleWheel = (event: React.WheelEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => { 
+        event.stopPropagation();
+        let deltaY = 0;
+        
+        if ("touches" in event){
+            deltaY = touchStart.current - event.changedTouches[0].clientY;
+        }else{
+            deltaY = event.deltaY;
+        }
+
         if (throttleScroll.current) return;
         throttleScroll.current = true;
 
-        scrollCount.current += event.deltaY < 0 ? -1 : 1;
+        scrollCount.current += deltaY < 0 ? -1 : 1;
 
         if (!   (scrollCount.current === 0
                 || (scrollCount.current > 0 && (activeSlideIdx >= (children?.length ? children.length - 1 : 0)))
@@ -49,20 +63,21 @@ export function SlideLayout({ children }: { children?: Array<ReactElement> }) {
                 isAnimating.current = true;
                 setAnimationSet((curr) => {
                     return {
-                        exitAnim: (event.deltaY < 0 ? "to-bottom" : "to-top"),
+                        exitAnim: (deltaY < 0 ? "to-bottom" : "to-top"),
                         enterAnim: null
                     }
                 });
             }
 
         } else{
-            scrollCount.current -= event.deltaY < 0 ? -1 : 1;
+            scrollCount.current -= deltaY < 0 ? -1 : 1;
         }
 
         setTimeout(() => throttleScroll.current = false, 50);
     }
 
-    const handleTransitionEnd = () => {
+    const handleTransitionEnd = (event: React.TransitionEvent) => {
+        event.stopPropagation();
         transitionCount.current += 1;
         if (transitionCount.current === 2) {
             setActiveSlideIdx((curr: number) => clamp(curr + scrollCount.current, 0, children?.length ? children.length - 1 : 0));
@@ -74,6 +89,12 @@ export function SlideLayout({ children }: { children?: Array<ReactElement> }) {
             });
             transitionCount.current = 0;
         }
+    }
+
+    const handleAnimationEnd = (event: React.AnimationEvent) => {
+        event.stopPropagation();
+        isAnimating.current = false;
+        scrollCount.current = 0;
     }
 
     const classNames = [];
@@ -96,10 +117,7 @@ export function SlideLayout({ children }: { children?: Array<ReactElement> }) {
         key={activeSlideIdx}
         className={"w-full h-full transition-[opacity_transform] duration-300 ease-in " + classNames.join(" ")}
         onTransitionEnd={handleTransitionEnd}
-        onAnimationEnd={() => {
-            isAnimating.current = false;
-            scrollCount.current = 0;
-        }}>
+        onAnimationEnd={handleAnimationEnd}>
         {children?.filter((x, id) => x && id === activeSlideIdx)}
     </div>
 
@@ -110,8 +128,11 @@ export function SlideLayout({ children }: { children?: Array<ReactElement> }) {
                                                     onClick={idx === activeSlideIdx ? undefined : handleClickNavigation}
                                                     ></div>);
     return (
-        <div className="w-full h-full bg-linear-to-br from-zinc-300 to-neutral-300 text-neutral-950 dark:from-gray-800 dark:to-neutral-800 dark:text-gray-300 p-4 flex flex-col items-stretch justify-stretch overflow-hidden" 
-            onWheel={handleWheel}>
+        <div className="w-full h-full bg-linear-to-br from-zinc-300 to-neutral-300 text-neutral-950 dark:from-gray-800 dark:to-neutral-800 dark:text-gray-300 p-4 flex flex-col items-stretch justify-stretch overflow-hidden touch-pan-y" 
+            onWheel={handleWheel}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleWheel}
+            >
                 <div className="w-full flex justify-center gap-1 mb-2 self-center">
                     {slideBar}
                 </div>
