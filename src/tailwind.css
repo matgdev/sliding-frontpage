@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@theme inline{
+@theme inline {
     --color-emphasis: var(--color-blue-700);
     --color-dark-primary: var(--color-slate-800);
     --color-dark-secondary: var(--color-slate-400);
