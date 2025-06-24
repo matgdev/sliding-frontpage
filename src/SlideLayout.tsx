@@ -15,7 +15,10 @@ export function SlideLayout({ children }: { children?: Array<ReactElement> }) {
     const scrollCount = useRef(0);
     const transitionCount = useRef(0);
 
-    const handleClickNavigation = (event: React.MouseEvent<HTMLDivElement>) => {
+    const handleClickNavigation = (
+        event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
+    ) => {
+        event.stopPropagation();
         if (isAnimating.current) return;
 
         const target = event.target as HTMLElement;
@@ -135,6 +138,8 @@ export function SlideLayout({ children }: { children?: Array<ReactElement> }) {
             data-id={idx}
             className={`h-[5px] flex-1 rounded border border-light-border dark:border-dark-border ${idx === activeSlideIdx ? "bg-emphasis" : "cursor-pointer"}`}
             onClick={idx === activeSlideIdx ? undefined : handleClickNavigation}
+            onTouchStart={idx === activeSlideIdx ? undefined : handleClickNavigation}
+            onTouchEnd={(event) => event.stopPropagation()}
         ></div>
     ));
     return (
