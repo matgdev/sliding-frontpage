@@ -33,7 +33,7 @@ function makeSlide({ title, description, imageName, extraImage }: SlideData) {
                     className="h-full w-full rounded-lg object-cover object-center"
                 />
             </div>
-            <p className="flex items-center justify-center rounded-xl p-3 text-center text-lg font-light backdrop-brightness-85 md:row-span-4 md:min-h-full md:text-xl lg:text-2xl xl:text-3xl">
+            <p className="flex items-center justify-center rounded-xl p-3 text-center text-lg font-light backdrop-brightness-85 md:row-span-4 md:min-h-full md:text-xl lg:text-2xl">
                 {description}
             </p>
             <div className="hidden self-center overflow-clip rounded-xl p-3 backdrop-brightness-85 md:col-start-2 md:row-span-6 md:row-start-7 md:block md:h-full md:w-full md:pt-3">
