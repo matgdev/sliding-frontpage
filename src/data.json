@@ -1,0 +1,26 @@
+[
+    {
+        "title": "The Statue of Liberty: A Symbol of Freedom",
+        "description": "Gifted by France in 1886, the Statue of Liberty stands on Liberty Island in New York Harbor. Made of copper and standing 305 feet tall, it represents freedom and democracy. The torch and broken chains at her feet symbolize enlightenment and liberation.",
+        "imageName": "patrick-t-kindt-v5rhsU1mWgs-unsplash.jpg",
+        "extraImage": "eleni-afiontzi-pvPe6q-iMAI-unsplash.jpg"
+    },
+    {
+        "title": "The Leaning Tower of Pisa: An Architectural Wonder",
+        "description": "Built in the 12th century in Pisa, Italy, this bell tower is famous for its unintended tilt caused by soft ground. Standing about 56 meters tall, the tower leans at nearly 4 degrees and has become a symbol of unique architectural charm.",
+        "imageName": "heidi-kaden-XvPsA9Riev4-unsplash.jpg",
+        "extraImage": "pauline-lu-hIf76nlULm8-unsplash.jpg"
+    },
+    {
+        "title": "The Taj Mahal: A Monument to Love",
+        "description": "Commissioned in 1632 by Mughal emperor Shah Jahan, the Taj Mahal in Agra, India, is a white marble mausoleum built for his wife Mumtaz Mahal. It’s known for its stunning symmetry, detailed carvings, and is a UNESCO World Heritage Site.",
+        "imageName": "julian-yu-_WuPjE-MPHo-unsplash.jpg",
+        "extraImage": "praveen-thirumurugan-_dya6V3LAeo-unsplash.jpg"
+    },
+    {
+        "title": "Big Ben: London’s Iconic Clock Tower",
+        "description": "Big Ben is the nickname for the Great Bell of the clock at the north end of the Palace of Westminster in London. Completed in 1859, the tower stands 96 meters tall and is one of the most recognized symbols of the United Kingdom.",
+        "imageName": "heidi-fin-QvPRGI8LfOc-unsplash.jpg",
+        "extraImage": "jamie-street-aLoN4KX1xSA-unsplash.jpg"
+    }
+]
