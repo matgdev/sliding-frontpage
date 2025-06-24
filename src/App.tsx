@@ -20,7 +20,10 @@ interface SlideData {
 
 function makeSlide({ title, description, imageName, extraImage }: SlideData) {
     return (
-        <Slide className="flex flex-col gap-3 font-sans md:grid md:grid-cols-2 md:grid-rows-12">
+        <Slide
+            key={title}
+            className="flex flex-col gap-3 font-sans md:grid md:grid-cols-2 md:grid-rows-12"
+        >
             <h1 className="flex items-center justify-center rounded-lg p-3 text-center text-lg leading-none font-bold backdrop-brightness-85 md:col-start-2 md:row-span-2 lg:text-2xl">
                 {title}
             </h1>
