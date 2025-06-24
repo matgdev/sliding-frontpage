@@ -7,6 +7,7 @@ A project to practice and learn using tailwindcss and react with typescript. The
 - Animations for sliding up and down
 - Navigation indicator
 - Touch navigation
+- Scroll navigation
 - Light and Dark themes
 
 ## Technologies used
